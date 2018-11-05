@@ -26,7 +26,7 @@ cd containers/tf_cnn_benchmarks && docker build -t tf_cnn_benchmarks .
 To run ResNet50 with synthetic data without distortions with a single GPU, run
 
 ```
-nvidia-docker --rm -it tf_cnn_benchmarks:latest python tf_cnn_benchmarks.py --num_gpus=1 --batch_size=32 --model=resnet50 --variable_update=parameter_server
+nvidia-docker --rm -it tf_cnn_benchmarks:latest python /benchmarks/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py --num_gpus=1 --batch_size=32 --model=resnet50 --variable_update=parameter_server
 ```
 
 Note that the master branch of tf_cnn_benchmarks requires the latest nightly
