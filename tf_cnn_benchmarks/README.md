@@ -26,7 +26,7 @@ cd containers/tf_cnn_benchmarks && docker build -t tf_cnn_benchmarks .
 To run ResNet50 with synthetic data without distortions with a single GPU, run
 
 ```
-nvidia-docker run --rm -it tf_cnn_benchmarks:latest python /benchmarks/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py --num_gpus=1 --batch_size=32 --model=resnet50 --variable_update=parameter_server
+nvidia-docker run --rm -t tf_cnn_benchmarks:latest python /benchmarks/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py --num_gpus=1 --batch_size=32 --model=resnet50 --variable_update=parameter_server
 ```
 
 Note that the master branch of tf_cnn_benchmarks requires the latest nightly
@@ -56,7 +56,7 @@ To see the full list of flags, run `python tf_cnn_benchmarks.py --help`.
 To run ResNet50 with real data with 8 GPUs, run:
 
 ```
-nvidia-docker run --rm -it tf_cnn_benchmarks:latest python /benchmarks/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py --data_format=NCHW --batch_size=256 \
+nvidia-docker run --rm -t tf_cnn_benchmarks:latest python /benchmarks/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py --data_format=NCHW --batch_size=256 \
 --model=resnet50 --optimizer=momentum --variable_update=replicated \
 --nodistortions --gradient_repacking=8 --num_gpus=8 \
 --num_epochs=90 --weight_decay=1e-4 --data_dir=${DATA_DIR} --use_fp16 \
@@ -70,7 +70,7 @@ GPUs. The model should train to around 76% accuracy.
 To run the tests, run
 
 ```bash
-nvidia-docker run --rm -it tf_cnn_benchmarks:latest python /benchmarks/scripts/tf_cnn_benchmarks/run_tests.py && /benchmarks/scripts/tf_cnn_benchmarks/run_tests.py --run_distributed_tests
+nvidia-docker run --rm -t tf_cnn_benchmarks:latest python /benchmarks/scripts/tf_cnn_benchmarks/run_tests.py && /benchmarks/scripts/tf_cnn_benchmarks/run_tests.py --run_distributed_tests
 ```
 
 Note the tests require portpicker.
@@ -80,7 +80,7 @@ comprehensive. Alternatively, all the tests can be run, but this will take a
 long time:
 
 ```bash
-nvidia-docker run --rm -it tf_cnn_benchmarks:latest python /benchmarks/scripts/tf_cnn_benchmarks/run_tests.py --full_tests && /benchmarks/scripts/tf_cnn_benchmarks/python run_tests.py --full_tests --run_distributed_tests
+nvidia-docker run --rm -t tf_cnn_benchmarks:latest python /benchmarks/scripts/tf_cnn_benchmarks/run_tests.py --full_tests && /benchmarks/scripts/tf_cnn_benchmarks/python run_tests.py --full_tests --run_distributed_tests
 ```
 
 We will run all tests on every PR before merging them, so it is not necessary
@@ -90,5 +90,5 @@ To run an individual test, such as method `testParameterServer` of test class
 `TfCnnBenchmarksTest` of module `benchmark_cnn_test`, run
 
 ```bash
-nvidia-docker run --rm -it tf_cnn_benchmarks:latest python -m unittest -v /benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn_test.TfCnnBenchmarksTest.testParameterServer
+nvidia-docker run --rm -t tf_cnn_benchmarks:latest python -m unittest -v /benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn_test.TfCnnBenchmarksTest.testParameterServer
 ```
